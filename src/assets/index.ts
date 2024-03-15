@@ -11,6 +11,7 @@ import Repeat from "./repeat.svg";
 import SignOut from "./signOut.svg";
 import UserCircle from "./userCircle.svg";
 import UserCircleBold from "./userCircleBold.svg";
+import Logo from "./logo.svg";
 
 export {
   ArrowLeft,
@@ -26,4 +27,5 @@ export {
   SignOut,
   UserCircle,
   UserCircleBold,
+  Logo,
 };
