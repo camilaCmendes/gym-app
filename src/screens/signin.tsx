@@ -1,11 +1,12 @@
 import BackgroundImg from "@assets/background.png";
 import { Logo } from "@assets/index";
+import { Button } from "@components/button";
 import { Input } from "@components/input";
 import { Center, Heading, Image, Text, VStack } from "native-base";
 
 export const SignIn = () => {
   return (
-    <VStack flex={1} bg={"gray.700"}>
+    <VStack flex={1} bg={"gray.700"} px={10}>
       <Image
         source={BackgroundImg}
         alt="Pessoas treinando"
@@ -28,6 +29,7 @@ export const SignIn = () => {
           autoCapitalize="none"
         />
         <Input placeholder="Senha" secureTextEntry />
+        <Button title="Acessar" />
       </Center>
     </VStack>
   );
