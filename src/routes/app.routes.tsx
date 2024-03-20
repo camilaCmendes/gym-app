@@ -46,7 +46,7 @@ export function AppRoutes() {
     >
       <Screen
         name="home"
-        children={Home}
+        component={Home}
         options={{
           tabBarIcon: ({ color }) => (
             <House width={iconSize} height={iconSize} color={color} />
@@ -55,7 +55,7 @@ export function AppRoutes() {
       />
       <Screen
         name="history"
-        children={History}
+        component={History}
         options={{
           tabBarIcon: ({ color }) => (
             <ClockCounterClockwise
@@ -68,7 +68,7 @@ export function AppRoutes() {
       />
       <Screen
         name="profile"
-        children={Profile}
+        component={Profile}
         options={{
           tabBarIcon: ({ color }) => (
             <UserCircle width={iconSize} height={iconSize} color={color} />
@@ -77,7 +77,7 @@ export function AppRoutes() {
       />
       <Screen
         name="exercise"
-        children={Exercise}
+        component={Exercise}
         options={{ tabBarButton: () => null }}
       />
     </Navigator>

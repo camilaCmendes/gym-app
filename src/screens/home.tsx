@@ -1,6 +1,7 @@
+import { ExerciseCard } from "@components/exerciseCard";
 import { Group } from "@components/group";
 import { HomeHeader } from "@components/homeHeader";
-import { FlatList, VStack } from "native-base";
+import { FlatList, HStack, Heading, Text, VStack } from "native-base";
 
 import { useState } from "react";
 
@@ -35,6 +36,20 @@ export function Home() {
         my={10}
         maxH={10}
       />
+
+      <VStack px={8}>
+        <HStack justifyContent="space-between" mb={5}>
+          <Heading color="gray.200" fontSize="md">
+            Exercícios
+          </Heading>
+
+          <Text color="gray.200" fontSize="sm">
+            4
+          </Text>
+        </HStack>
+        <ExerciseCard />
+        <ExerciseCard />
+      </VStack>
     </VStack>
   );
 }
