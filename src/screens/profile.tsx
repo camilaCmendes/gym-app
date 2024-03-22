@@ -53,7 +53,6 @@ export function Profile() {
           photoInfo.size &&
           photoInfo.size / 1024 / 1024 > 5
         ) {
-          console.log("entrou");
           return toast.show({
             title: "Essa imagem é muito grande. Escolha uma de até 5MB.",
             placement: "top",
