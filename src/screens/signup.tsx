@@ -6,15 +6,22 @@ import { useNavigation } from "@react-navigation/native";
 import { Center, Heading, Image, ScrollView, Text, VStack } from "native-base";
 import { useForm, Controller } from "react-hook-form";
 
+type FormDataProps = {
+  name: string;
+  email: string;
+  password: string;
+  password_confirm: string;
+};
+
 export const SignUp = () => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm<FormDataProps>();
   const navigation = useNavigation();
 
   const handleGoBack = () => {
     navigation.goBack();
   };
 
-  const handleSignUp = (data: any) => {
+  const handleSignUp = (data: FormDataProps) => {
     console.log({ data });
   };
 
