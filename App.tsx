@@ -8,7 +8,7 @@ import { Routes } from "@routes/index";
 import { NativeBaseProvider } from "native-base";
 import { StatusBar } from "react-native";
 import { THEME } from "./src/theme";
-import { AuthContext } from "@contexts/authContext";
+import { AuthContextProvider } from "@contexts/authContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
@@ -19,18 +19,9 @@ export default function App() {
         backgroundColor={"transparent"}
         translucent
       />
-      <AuthContext.Provider
-        value={{
-          user: {
-            id: "1",
-            name: "Camila",
-            email: "camila@email.com",
-            avatar: "camila.png",
-          },
-        }}
-      >
+      <AuthContextProvider>
         {fontsLoaded ? <Routes /> : <Loading />}
-      </AuthContext.Provider>
+      </AuthContextProvider>
     </NativeBaseProvider>
   );
 }
