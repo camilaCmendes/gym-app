@@ -8,7 +8,8 @@ import defaultUserPhotoImg from "@assets/userPhotoDefault.png";
 
 export const HomeHeader = () => {
   const { colors } = useTheme();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
+
   return (
     <HStack
       bg={"gray.400"}
@@ -32,7 +33,7 @@ export const HomeHeader = () => {
           {user.name}
         </Heading>
       </VStack>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={signOut}>
         <SignOut color={colors.gray[200]} width={32} height={32} />
       </TouchableOpacity>
     </HStack>
