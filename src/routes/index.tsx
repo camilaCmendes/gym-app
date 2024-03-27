@@ -9,14 +9,12 @@ export function Routes() {
   const theme = DefaultTheme;
   const { user } = useAuth();
 
-  console.log("USUÁRIO LOGADO =>", user);
-
   theme.colors.background = nativeBaseTheme.colors.gray[700];
 
   return (
     <Box flex={1} bg="gray.700">
       <NavigationContainer theme={theme}>
-        <AuthRoutes />
+        {user.id ? <AppRoutes /> : <AuthRoutes />}
       </NavigationContainer>
     </Box>
   );
