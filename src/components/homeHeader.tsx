@@ -3,8 +3,12 @@ import { userPhoto } from "@assets/userPhotoDefault.png";
 import { SignOut, UserCircle } from "@assets/index";
 import { UserPhoto } from "./userPhoto";
 import { TouchableOpacity } from "react-native";
+import { useAuth } from "@hooks/useAuth";
+import defaultUserPhotoImg from "@assets/userPhotoDefault.png";
+
 export const HomeHeader = () => {
   const { colors } = useTheme();
+  const { user } = useAuth();
   return (
     <HStack
       bg={"gray.400"}
@@ -15,7 +19,7 @@ export const HomeHeader = () => {
       w={"full"}
     >
       <UserPhoto
-        source={{ uri: "https://github.com/camilaCmendes.png" }}
+        source={user.avatar ? { uri: user.avatar } : defaultUserPhotoImg}
         alt="imagem do usuário"
         size={16}
         mr={4}
@@ -25,7 +29,7 @@ export const HomeHeader = () => {
           Olá,
         </Text>
         <Heading color={"gray.100"} fontSize={"md"} fontFamily={"heading"}>
-          Camila
+          {user.name}
         </Heading>
       </VStack>
       <TouchableOpacity>
