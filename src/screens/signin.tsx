@@ -40,8 +40,8 @@ export const SignIn = () => {
     navigation.navigate("signUp");
   };
 
-  const handleSignIn = ({ email, password }: FormDataProps) => {
-    singIn(email, password);
+  const handleSignIn = async ({ email, password }: FormDataProps) => {
+    await singIn(email, password);
   };
 
   return (
