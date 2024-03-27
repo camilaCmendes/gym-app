@@ -18,6 +18,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "@hooks/useAuth";
 import { AppError } from "@utils/AppError";
+import { useState } from "react";
 
 type FormDataProps = {
   email: string;
@@ -45,12 +46,15 @@ export const SignIn = () => {
   const toast = useToast();
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleNewAccount = () => {
     navigation.navigate("signUp");
   };
 
   const handleSignIn = async ({ email, password }: FormDataProps) => {
     try {
+      setIsLoading(true);
       await singIn(email, password);
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -64,6 +68,7 @@ export const SignIn = () => {
         placement: "top",
         bgColor: "red.500",
       });
+      setIsLoading(false);
     }
   };
 
@@ -119,7 +124,11 @@ export const SignIn = () => {
               />
             )}
           />
-          <Button title="Acessar" onPress={handleSubmit(handleSignIn)} />
+          <Button
+            title="Acessar"
+            onPress={handleSubmit(handleSignIn)}
+            isLoading={isLoading}
+          />
         </Center>
 
         <Center mt={24}>
