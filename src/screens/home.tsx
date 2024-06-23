@@ -20,8 +20,8 @@ export const Home = () => {
 
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
-  function handleOpenExerciseDetails() {
-    navigation.navigate("exercise");
+  function handleOpenExerciseDetails(exerciseId: string) {
+    navigation.navigate("exercise", { exerciseId });
   }
 
   const fetchGroups = async () => {
@@ -46,7 +46,6 @@ export const Home = () => {
     try {
       setIsLoading(true);
       const response = await api.get(`/exercises/bygroup/${groupSelected}`);
-      console.log(response.data);
       setExercises(response.data);
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -118,7 +117,10 @@ export const Home = () => {
             data={exercises}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <ExerciseCard data={item} onPress={handleOpenExerciseDetails} />
+              <ExerciseCard
+                data={item}
+                onPress={() => handleOpenExerciseDetails(item.id)}
+              />
             )}
             showsVerticalScrollIndicator={false}
             _contentContainerStyle={{
