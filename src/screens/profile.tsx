@@ -20,14 +20,20 @@ import * as ImagePicker from "expo-image-picker";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useAuth } from "@hooks/useAuth";
 
-type FormDataProps = {
+type PasswordDataProps = {
   password: string;
   new_password: string;
   confirm_new_password: string;
 };
 
-const profileScheme = yup.object({
+type ProfileDataProps = {
+  name: string;
+  email: string;
+};
+
+const passwordScheme = yup.object({
   password: yup
     .string()
     .required("Informe a senha.")
@@ -45,16 +51,31 @@ const profileScheme = yup.object({
     ),
 });
 
+const profileScheme = yup.object({
+  name: yup.string().required("Informe o nome."),
+  email: yup.string().email("E-mail inválido").required("Informe o e-mail."),
+});
+
 const PHOTO_SIZE = 33;
 
 export function Profile() {
+  const toast = useToast();
+  const { user } = useAuth();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormDataProps>({ resolver: yupResolver(profileScheme) });
+  } = useForm<PasswordDataProps>({ resolver: yupResolver(passwordScheme) });
 
-  const toast = useToast();
+  const {
+    control: profileControl,
+    handleSubmit: handleProfileSubmit,
+    formState: { errors: profileErrors },
+  } = useForm<ProfileDataProps>({
+    resolver: yupResolver(profileScheme),
+    defaultValues: { name: user.name, email: user.email },
+  });
 
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
   const [userPhoto, setUserPhoto] = useState(
@@ -102,7 +123,7 @@ export function Profile() {
     }
   }
 
-  const handleNewPassword = (data: FormDataProps) => {
+  const handleNewPassword = (data: PasswordDataProps) => {
     console.log(data);
   };
 
@@ -138,8 +159,33 @@ export function Profile() {
               Alterar Foto
             </Text>
           </TouchableOpacity>
-          <Input bg="gray.600" placeholder="Nome" />
-          <Input bg="gray.600" placeholder="E-mail" isDisabled />
+          <Controller
+            control={profileControl}
+            name="name"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                bg="gray.600"
+                placeholder="Nome"
+                onChangeText={onChange}
+                value={value}
+                errorMessage={profileErrors.name?.message}
+              />
+            )}
+          />
+          <Controller
+            control={profileControl}
+            name="email"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                bg="gray.600"
+                placeholder="E-mail"
+                onChangeText={onChange}
+                value={value}
+                errorMessage={profileErrors.email?.message}
+                isDisabled
+              />
+            )}
+          />
           <Heading
             color="gray.200"
             fontSize="md"
